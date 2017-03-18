@@ -6,7 +6,7 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 13:43:48 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/16 21:58:51 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/18 22:20:50 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,13 @@ typedef struct	s_room
 	char		*start;
 	char		*end;
 }				t_room;
+
+typedef struct	s_ant
+{
+	char		*name;
+	int			nb;
+}				t_ant;
+
+void get_link(t_ant *ant, char *line);
 
 #endif
