@@ -6,86 +6,34 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 13:45:40 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/18 23:37:03 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/19 22:25:19 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static int get_space(char *line)
+int		main(void)
 {
-	int i;
+	t_list	*map;
+	int		nb_ants;
 
-	i = -1;
-	while (++i && line[i] != ' ')
-		;
-	return (i);
-}
-
-void get_in(char *line, char *room, int u)
-{
-	int i;
-
-	i = 0;
-	while (i != u)
+	map = get_map(&nb_ants);
+	if (map)
 	{
-		room[i] = line[i];
-		++i;
+		ft_initpond(map);
+		if (ft_ismapvalid(map) == 2)
+		{
+			write(1, "\n", 1);
+			ft_invaliduselessways(map);
+			ft_initants(nb_ants, map, parse);
+			ft_free_parse(parse);
+			ft_lstdelbyfunc(&map, &ft_delhill);
+		}
+		else
+		{
+			ft_putstr_fd("\n--ERROR : No ways to the end--\n", 2);
+			return (0);
+		}
 	}
-	room[u] = '\0';
-}
-
-static void get_room(char *line, t_room *room)
-{
-	int i;
-
-	i = 0;
-	if (ft_strncmp(line, "##start", 7) == 0)
-	{
-		free(line);
-		get_next_line(0, &line);
-		i = get_space(line);
-		room->start = (char*)malloc(sizeof(char) * i + 1);
-		get_in(line, room->start, i + 1);
-	}
-	if (ft_strncmp(line, "##end", 5) == 0)
-	{
-		free(line);
-		get_next_line(0, &line);
-		i = get_space(line);
-		room->end = (char*)malloc(sizeof(char) * i + 1);
-		get_in(line, room->end, i + 1);
-	}
-}
-
-static int get_ant(char *line)
-{
-	int nb;
-
-	nb = ft_atoi(line);
-	if (nb == 0)
-	{
-		free(line);
-		return (0);
-	}
-	free(line);
-	return (nb);
-}
-
-int main(void)
-{
-	t_room room;
-	char *line;
-	t_ant ant;
-
-	get_next_line(0, &line);
-	ant.nb = get_ant(line);
-	while (get_next_line(0, &line) > 0)
-	{
-		if (ft_strncmp(line, "#", 1) == 0)
-			get_room(line, &room);
-		free(line);
-	}
-	ft_printf("nb de ant %i\nstart = %s\nend = %s\n", ant.nb, room.start, room.end);
-	return (0);
+	return (1);
 }
