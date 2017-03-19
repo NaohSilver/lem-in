@@ -6,7 +6,7 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/14 13:43:48 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/19 22:31:09 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/19 23:26:33 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@ typedef struct	s_double_room
 ** Initialisation
 */
 
-t_list			*get_map(int *nb_ants);//ft_getleminmap
-t_list			*ft_getinput(void);
-int				ft_initleminmap(t_list **tmp, t_list **map, int *nb_ants);
-int				ft_treatline(t_list **file, t_list **map, int *nb_ants);
-void			ft_treatcommands(t_list **file, t_list **map);
-int				ft_checkroomfmt(char *line);
-int				ft_checkname(char *name, t_list *map);
-int				ft_checkpipefmt(char *line);
-void			ft_createroom(char *line, t_list **map, int se);
+t_list			*get_map(int *nb_ants);
+t_list			*get_input(void);
+int				init_map(t_list **tmp, t_list **map, int *nb_ants);
+int				treat_line(t_list **file, t_list **map, int *nb_ants);
+void			get_commands(t_list **file, t_list **map);
+int				check_room(char *line);
+int				check_name(char *name, t_list *map);
+int				ft_checkpipefmt(char *line);//here
+void			create_room(char *line, t_list **map, int se);
 int				ft_getpipes(t_list *file, t_list **map);
 void			ft_delhill(void *content);
 void			ft_fillmapwithants(t_list *map, int nb_ants);
@@ -58,7 +58,7 @@ void			ft_fillmapwithants(t_list *map, int nb_ants);
 
 int				ft_ismapvalid(t_list *map);
 int				ft_ispipevalid(t_room *r1, t_room *r2);
-int				ft_seemshillvalid(t_list *map);
+int				not_valid(t_list *map);
 
 int				ft_printmap(t_list *map);
 
@@ -85,5 +85,6 @@ t_room			*ft_getroomwbalance(t_list *map, int way);
 int				ft_iswhitespace(char c);
 void			ft_lstaddtail(t_list **alst, t_list *new);
 void			ft_lstdelbyfunc(t_list **alst, void (*del)(void *content));
+int				ft_wordlen(char *str, char c);
 
 #endif

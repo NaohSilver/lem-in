@@ -6,13 +6,13 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/19 22:18:00 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/19 22:18:31 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/19 23:23:43 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-void		ft_treatcommands(t_list **file, t_list **map)
+void		get_commands(t_list **file, t_list **map)
 {
 	int		se;
 
@@ -21,16 +21,16 @@ void		ft_treatcommands(t_list **file, t_list **map)
 		se = 1;
 	else if (ft_strequ((*file)->content, "##end"))
 		se = 0;
-	while (*file && !ft_checkroomfmt((*file)->content))
+	while (*file && !check_room((*file)->content))
 	{
 		ft_printf("%s\n", (*file)->content);
 		*file = (*file)->next;
 	}
-	if (*file && ft_checkname((*file)->content, *map))
-		ft_createroom((*file)->content, map, se);
+	if (*file && check_name((*file)->content, *map))
+		create_room((*file)->content, map, se);//here
 }
 
-int			ft_checkname(char *name, t_list *map)
+int			check_name(char *name, t_list *map)
 {
 	t_room	*tmp;
 

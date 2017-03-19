@@ -6,13 +6,23 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/19 22:10:04 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/19 22:10:37 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/19 23:24:49 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static int	ft_checkroomfmt2(char *line, int len)
+int	ft_wordlen(char *str, char c)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != c)
+		i++;
+	return (i);
+}
+
+static int	check_room2(char *line, int len)
 {
 	int i;
 
@@ -37,14 +47,14 @@ static int	ft_checkroomfmt2(char *line, int len)
 	return (1);
 }
 
-int			ft_checkroomfmt(char *line)
+int			check_room(char *line)
 {
 	int len;
 
 	len = ft_wordlen(line, ' ');
 	if (*line != '#' && !ft_strnchr(line, '-', len) &&
 		*line != 'L')
-		return (ft_checkroomfmt2(line, len));
+		return (check_room2(line, len));
 	return (0);
 }
 

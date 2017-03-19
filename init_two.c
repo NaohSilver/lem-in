@@ -6,7 +6,7 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/19 22:05:31 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/19 22:06:39 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/19 23:13:28 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,21 @@ void		ft_fillmapwithants(t_list *map, int nb_ants)
 int			ft_treatleminerror(int ret)
 {
 	if (ret == 0)
-		ft_printf("\nERROR : Bad declaration of ants\n%@", 2);
+		ft_putstr_fd("\n--ERROR : Bad declaration of ants--\n", 2);
 	else if (ret == -1)
-		ft_printf("\nERROR : Bad format for line\n%@", 2);
+		ft_putstr_fd("\n--ERROR : Bad format for line--\n", 2);
 	else if (ret == -2)
-		ft_printf("\nERROR : Bad room name in pipes declaration\n%@", 2);
+		ft_putstr_fd("\n--ERROR : Bad room name in pipes declaration--\n", 2);
 	return (0);
 }
 
-int			ft_initleminmap(t_list **tmp, t_list **map, int *nb_ants)
+int			init_map(t_list **tmp, t_list **map, int *nb_ants)
 {
 	int		ret;
 
 	while (*tmp)
 	{
-		if ((ret = ft_treatline(tmp, map, nb_ants)) > 0)
+		if ((ret = treat_line(tmp, map, nb_ants)) > 0)
 		{
 			if (ret != 2 && *tmp)
 				ft_printf("%s\n", (*tmp)->content);
@@ -61,7 +61,7 @@ int			ft_initleminmap(t_list **tmp, t_list **map, int *nb_ants)
 	return (1);
 }
 
-t_list		*ft_getinput(void)
+t_list		*get_input(void)
 {
 	t_list	*file;
 	char	*line;

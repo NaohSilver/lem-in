@@ -6,13 +6,13 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/19 22:05:23 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/19 22:31:20 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/19 23:24:23 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-t_room		*ft_initroom(char *line, int se)
+t_room		*init_room(char *line, int se)
 {
 	t_room		*room;
 	int			len;
@@ -41,12 +41,12 @@ t_room		*ft_initroom(char *line, int se)
 	return (room);
 }
 
-void		ft_createroom(char *line, t_list **map, int se)
+void		create_room(char *line, t_list **map, int se)
 {
 	t_room		*room;
 	t_list		*add;
 
-	if ((room = ft_initroom(line, se)))
+	if ((room = init_room(line, se)))
 	{
 		if ((add = (t_list *)malloc(sizeof(t_list))))
 		{
@@ -57,11 +57,11 @@ void		ft_createroom(char *line, t_list **map, int se)
 	}
 }
 
-static int	ft_getrooms(t_list **file, t_list **map)
+static int	get_rooms(t_list **file, t_list **map)
 {
 	if (ft_strequ((*file)->content, "##start") ||
 		ft_strequ((*file)->content, "##end"))
-		ft_treatcommands(file, map);
+		get_commands(file, map);
 	else if (*(char *)(*file)->content == '#')
 		;
 	else if (ft_checkroomfmt((*file)->content) &&
@@ -72,7 +72,7 @@ static int	ft_getrooms(t_list **file, t_list **map)
 	return (1);
 }
 
-int			ft_treatline(t_list **file, t_list **map, int *nb_ants)
+int			treat_line(t_list **file, t_list **map, int *nb_ants)
 {
 	static int	step;
 	int			phase;
@@ -86,7 +86,7 @@ int			ft_treatline(t_list **file, t_list **map, int *nb_ants)
 	}
 	else if (step == 1)
 	{
-		if (step == 1 && (step = ft_getrooms(file, map)) == 2)
+		if (step == 1 && (step = get_rooms(file, map)) == 2)
 			phase = 2;
 	}
 	else
@@ -103,14 +103,14 @@ t_list		*get_map(int *nb_ants)
 	t_list	*map;
 
 	map = NULL;
-	file = ft_getinput();//im here
+	file = get_input();
 	tmp = file;
-	if (ft_initleminmap(&tmp, &map, nb_ants) == 0)
+	if (init_map(&tmp, &map, nb_ants) == 0)
 	{
 		ft_lstdel(&file);
 		return (NULL);
 	}
-	if (!ft_seemshillvalid(map) &&
+	if (!not_valid(map) &&
 		ft_putstr_fd("\n--ERROR : Missing informations--\n", 2))
 	{
 		ft_lstdelbyfunc(&map, &ft_delhill);

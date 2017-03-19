@@ -6,7 +6,7 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/19 22:16:40 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/19 22:17:35 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/19 23:14:50 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_ismapvalid(t_list *map)
 	return (ok);
 }
 
-int		ft_seemshillvalid(t_list *map)
+int		not_valid(t_list *map)
 {
 	t_room		*act;
 	int			start;
