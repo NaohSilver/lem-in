@@ -5,71 +5,42 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/18 21:45:10 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/19 22:11:17 by niludwig         ###   ########.fr       */
+/*   Created: 2017/03/26 05:05:51 by niludwig          #+#    #+#             */
+/*   Updated: 2017/03/27 05:01:03 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static int	ft_createpipethesequel(t_room *r1, t_room *r2)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list	*add;
+	t_list *list;
 
-	add = NULL;
-	if (r1 && r2)
-	{
-		if (ft_ispipevalid(r1, r2))
-		{
-			add = (t_list *)malloc(sizeof(t_list) * 1);
-			add->content = r2;
-			add->content_size = sizeof(r2);
-			ft_lstadd(&r1->pipes, add);
-			add = NULL;
-			add = (t_list *)malloc(sizeof(t_list) * 1);
-			add->content = r1;
-			add->content_size = sizeof(r1);
-			ft_lstadd(&r2->pipes, add);
-			add = NULL;
-		}
-	}
+	list = *alst;
+	new->next = NULL;
+	if (!(*alst))
+		*alst = new;
 	else
-		return (-2);
-	return (1);
+	{
+		while (list->next)
+			list = list->next;
+		list->next = new;
+	}
 }
 
-static int	ft_createpipe(t_list *file, t_list **tmap)
+t_map get_link(char *line, t_map *map)
 {
-	t_room	*r1;
-	t_room	*r2;
-	t_room	*tmp;
-	t_list	*map;
-	int		len;
+	int i;
 
-	r1 = NULL;
-	r2 = NULL;
-	map = *tmap;
-	len = ft_wordlen(file->content, '-');
-	((char *)(file->content))[len] = '\0';
-	while (map)
+	i = 0;
+	while (line[i] != '\0')
 	{
-		tmp = map->content;
-		if (ft_strequ(tmp->name, file->content))
-			r1 = tmp;
-		if (ft_strequ(tmp->name, file->content + len + 1))
-			r2 = tmp;
-		map = map->next;
+		if (line[i] == '-')
+			ft_lstadd_back(&(map->link), ft_lstnew(line, sizeof(char*)\
+			* ft_strlen(line) + 1));
+		++i;
 	}
-	((char *)(file->content))[len] = '-';
-	return (ft_createpipethesequel(r1, r2));
-}
-
-int			ft_getpipes(t_list *file, t_list **map)
-{
-	if (*(char *)file->content == '#')
-		return (1);
-	else if (ft_checkpipefmt(file->content))
-		return (ft_createpipe(file, map));
-	else
-		return (-1);
+	free(line);
+	map->err = 0;
+	return (*map);
 }

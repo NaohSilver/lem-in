@@ -6,15 +6,14 @@
 #    By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/08 01:33:55 by niludwig          #+#    #+#              #
-#    Updated: 2017/03/19 22:19:17 by niludwig         ###   ########.fr        #
+#    Updated: 2017/03/27 05:02:02 by niludwig         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = lem-in
 CC = gcc
 CFLAG = -Wall -Werror -Wextra
-SRC = main.c init_one.c init_two.c algo.c get_link.c find_path.c sheck.c \
-	get_room.c invalid_way.c pound_on.c get_info.c
+SRC = lem-in.c get_link.c ants.c
 OBJ = $(SRC:.c=.o)
 LIBFT_PATH = ./libft/libft/
 PRINTF_PATH = ./libft/
