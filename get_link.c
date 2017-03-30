@@ -6,7 +6,7 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/26 05:05:51 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/27 05:01:03 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/03/30 06:06:17 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,20 @@ void	ft_lstadd_back(t_list **alst, t_list *new)
 	}
 }
 
-t_map get_link(char *line, t_map *map)
+int		ft_iswhitespace(char c)
 {
-	int i;
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+			|| c == '\r')
+		return (1);
+	else
+		return (0);
+}
 
-	i = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '-')
-			ft_lstadd_back(&(map->link), ft_lstnew(line, sizeof(char*)\
-			* ft_strlen(line) + 1));
-		++i;
-	}
-	free(line);
-	map->err = 0;
-	return (*map);
+int		ft_isend(char c)
+{
+	if (c == '\t' || c == '\n' || c == '\v' || c == '\f'
+			|| c == '\r')
+		return (1);
+	else
+		return (0);
 }
