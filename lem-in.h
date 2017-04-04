@@ -6,7 +6,7 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/23 01:02:34 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/30 07:49:08 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/04/04 16:15:32 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct	s_map
 {
 	int			nb;
 	int			err;
+	int			i;
 	t_list		*link;
 }				t_map;
 
@@ -33,4 +34,5 @@ void			put_err(int err);
 void			ft_lstadd_back(t_list **alst, t_list *new);
 int				ft_isend(char c);
 void			get_algo(char *start, char *end, t_map *map);
+int				get_trait(char *str);
 #endif

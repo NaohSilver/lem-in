@@ -6,13 +6,25 @@
 /*   By: niludwig <niludwig@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 01:17:06 by niludwig          #+#    #+#             */
-/*   Updated: 2017/03/30 08:12:57 by niludwig         ###   ########.fr       */
+/*   Updated: 2017/04/04 16:15:41 by niludwig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem-in.h"
 
-static int get_trait(char *line)
+static void get_free(t_map *map, char *str, char *str2)
+{
+	free(str);
+	free(str2);
+	while (map->link->next)
+	{
+		free(map->link->content);
+		map->link = map->link->next;
+	}
+	free(map->link->content);
+}
+
+int get_trait(char *line)
 {
 	int i;
 	int k;
@@ -49,6 +61,7 @@ void get_link_room(char *line, t_map *map)
 t_map set_map(t_map *map, char *line)
 {
 	map->err = 0;
+	map->i = 0;
 	map->link = NULL;
 	get_next_line(0, &line);
 	map->nb = ft_atoi(line);
@@ -84,13 +97,7 @@ int main(void)
 			get_link_room(line, &map);
 		free(line);
 	}
-	ft_printf("%i\n##start\n%s\n##end\n%s\n%s\n", map.nb ,start, end, map.link->content);
-	while (map.link->next)
-	{
-		ft_printf("%s\n", map.link->content);
-		map.link = map.link->next;
-	}
-	ft_printf("%s\n", map.link->content);
 	get_algo(start, end, &map);
+	get_free(&map, end, start);
 	return (0);
 }
